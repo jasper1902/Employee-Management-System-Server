@@ -7,10 +7,9 @@ const storage = diskStorage({
     cb(null, "./src/public/images/");
   },
   filename: function (req: Request, file: Express.Multer.File, cb) {
-    const sanitizedName = file.originalname.replace(/ /g, "_");
-    const uniqueFilename = `${sanitizedName}-${
-      file.fieldname
-    }-${uuidv4()}-${sanitizedName}`;
+    const uniqueSuffix = uuidv4();
+    const sanitizedOriginalName = file.originalname.replace(/[^a-zA-Z0-9]/g, '_');
+    const uniqueFilename = `${sanitizedOriginalName}-${uniqueSuffix}.jpg`;
     cb(null, uniqueFilename);
   },
 });

@@ -55,30 +55,20 @@ export const createEmployee: RequestHandler = async (
         return response.status(400).json({ message: "Email already exists" });
       }
 
-      let newEmployeeObject;
+      const imagePath = request.file?.filename
+        ? `/public/images/${request.file.filename}`
+        : undefined;
 
-      if (request.file?.filename) {
-        newEmployeeObject = {
-          firstName,
-          lastName,
-          email,
-          phone,
-          hireDate,
-          salary: parseInt(salary, 10),
-          department,
-          image: `/public/images/${request.file?.filename}`,
-        };
-      } else {
-        newEmployeeObject = {
-          firstName,
-          lastName,
-          email,
-          phone,
-          hireDate,
-          salary: parseInt(salary, 10),
-          department,
-        };
-      }
+      const newEmployeeObject = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        hireDate,
+        salary: parseInt(salary, 10),
+        department,
+        image: imagePath,
+      };
 
       const newEmployee = await Employee.create(newEmployeeObject);
 
