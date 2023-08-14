@@ -20,10 +20,16 @@ app.use("/api/account", userRoute);
 app.use("/api/employee", employeeRoute);
 
 app.use("/public", express.static(path.join(__dirname, "public")));
+
 app.get("/public/images/:imageName", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "src", "public", "images", req.params.imageName)
-  );
+  const imagePath = path.join(__dirname, "public", "images", req.params.imageName);
+  
+  res.sendFile(imagePath, (error) => {
+    if (error) {
+      console.error("Error sending file:", error);
+      res.status(404).send("Image not found");
+    }
+  });
 });
 
 app.use((req, res, next) => {
