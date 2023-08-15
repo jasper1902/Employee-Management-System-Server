@@ -57,7 +57,7 @@ interface ToEmployResponseType {
 
 employeeSchema.method(
   "toEmployResponse",
-  function toEmployResponse(protocol: string, url: string) {
+  function toEmployResponse(url: string) {
     try {
       const originalDateString: string = this.hireDate;
       const originalDate = new Date(originalDateString);
@@ -78,7 +78,7 @@ employeeSchema.method(
         hireDate: formattedResult,
         salary: this.salary,
         department: this.department,
-        image: `${protocol}://${url}${this.image}`,
+        image: `https://${url}${this.image}`,
       };
     } catch (error) {
       throw new Error("Failed to generate user response");
