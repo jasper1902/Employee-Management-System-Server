@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 if (process.env.NODE_ENV !== 'production') {
   config();
 }
+console.log(process.env.NODE_ENV)
 // call after config() to access the env variables
 import { app } from './api';
 
