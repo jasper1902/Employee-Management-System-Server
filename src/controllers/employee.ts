@@ -73,10 +73,9 @@ export const createEmployee: RequestHandler = async (
       const newEmployee = await Employee.create(newEmployeeObject);
 
       const host = request.headers.host ?? "";
-      const protocol = request.protocol;
       response
         .status(201)
-        .json({ employee: newEmployee.toEmployResponse(protocol, host) });
+        .json({ employee: newEmployee.toEmployResponse(host) });
     });
   } catch (error) {
     nextFunction(error);
@@ -91,9 +90,8 @@ export const getAllEmployees: RequestHandler = async (
   try {
     const employees = await Employee.find().exec();
     const host = request.headers.host ?? "";
-    const protocol = request.protocol;
     const employeesResponse = employees.map((employee) =>
-      employee.toEmployResponse(protocol, host)
+      employee.toEmployResponse(host)
     );
     response.status(200).json({ employees: employeesResponse });
   } catch (error) {
@@ -192,10 +190,9 @@ export const updateEmployee: RequestHandler = async (
         }
 
         const host = request.headers.host ?? "";
-        const protocol = request.protocol;
         response
           .status(200)
-          .json({ employee: updatedEmployee.toEmployResponse(protocol, host) });
+          .json({ employee: updatedEmployee.toEmployResponse(host) });
       } catch (error) {
         nextFunction(error);
       }

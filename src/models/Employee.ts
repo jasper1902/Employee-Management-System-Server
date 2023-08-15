@@ -11,7 +11,7 @@ interface IEmployee extends Document {
 }
 
 interface IEmployeeMethods {
-  toEmployResponse(url: string, protocol: string): ToEmployResponseType;
+  toEmployResponse(url: string): ToEmployResponseType;
 }
 
 type EmployeeModel = Model<IEmployee, object, IEmployeeMethods>;
